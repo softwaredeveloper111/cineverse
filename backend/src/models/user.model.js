@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema({
      },
     message: 'Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character (!@#$%^&*)'
   },
+  select:false
 },
 
 

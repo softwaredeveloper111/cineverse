@@ -13,9 +13,15 @@ const movieSchema = new mongoose.Schema({
   },
   
   poster:{
-    type:String, /**URL of the poster */
-    required:[true,"poster url should be required"]
-  },
+  type:String,
+  required:[true,"poster url should be required"],
+  validate:{
+    validator: function(value){
+      return /^https?:\/\/.+\..+/.test(value)
+    },
+    message:"poster must be a valid URL"
+  }
+},
 
   description:{
     type:String,
@@ -49,16 +55,19 @@ const movieSchema = new mongoose.Schema({
   }
 },
 
-  genre:[
-    {
-      type:String,
-      enum:{
-        values:["Action", "Adventure", "Animation", "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Horror", "Mystery", "Romance", "Sci-Fi", "Thriller", "Western", "Biography", "History", "Music", "Sport", "Family"],
-        message:"genre should be in between given list"
-      },
-      required:[true,"genre should be required"]
-    }
-  ],
+  genre:{
+  type:[String],
+  validate:{
+    validator: function(value){
+      return Array.isArray(value) && value.length >= 1
+    },
+    message:"at least one genre is required"
+  },
+  enum:{
+    values:["Action", "Adventure", "Animation", "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Horror", "Mystery", "Romance", "Sci-Fi", "Thriller", "Western", "Biography", "History", "Music", "Sport", "Family"],
+    message:"genre should be in between given list"
+  }
+},
 
   category:{
     type:String,
@@ -78,6 +87,7 @@ const movieSchema = new mongoose.Schema({
 
   createdBy:{
     type:mongoose.Schema.Types.ObjectId,
+    required:[true,"admin Id should be required"],
     ref:"user"
   },
 
