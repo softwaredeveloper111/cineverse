@@ -6,6 +6,7 @@ const movieRouter = require('./routes/movie.route')
 const tmdbRouter = require('./routes/tmdb.routes')
 const favouriteRouter = require("./routes/favourite.route")
 const watchHistoryRouter = require("./routes/watchHistory.route")
+const adminRouter = require("./routes/admin.route")
 
 
 const app = express();
@@ -23,6 +24,8 @@ app.use("/api/movies",movieRouter)
 app.use("/api/tmdb" , tmdbRouter )
 app.use("/api/favourites", favouriteRouter)
 app.use("/api/watchhistory", watchHistoryRouter)
+app.use("/api/admin",adminRouter)
+
 
 
 
